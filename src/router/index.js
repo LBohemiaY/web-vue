@@ -39,7 +39,7 @@ export const constantRoutes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/login/index')
+    component: () => import('@/views/register/index')
   },
   {
     path: '/404',
