@@ -1,11 +1,9 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form login-form-radius" auto-complete="on" label-position="left">
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">登 录</h3>
       </div>
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -20,7 +18,6 @@
           auto-complete="on"
         />
       </el-form-item>
-
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
@@ -40,14 +37,23 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
+      <el-form-item size="small" class="me-tologorhome-link">
+        <el-row>
+          <span style="font-size: 1rem; color: dark;">没有账号?   </span>
+          <router-link to="/register"><span style="font-size: 1rem; color: #87CEFA;">注册</span></router-link>
+        </el-row>
+        <el-row>
+          <router-link to="/"><span style="font-size: 1rem; color: #87CEFA;">返回首页</span></router-link>
+        </el-row>
+      </el-form-item>
+      <div class="me-login-design">
+        <p>Designed by
+          <strong>
+            <router-link to="/" class="login-design-color">Bohemia</router-link>
+          </strong>
+        </p>
       </div>
-
     </el-form>
   </div>
 </template>
@@ -129,8 +135,8 @@ export default {
 <style lang="scss">
 
 $bg:#ffffff;
-$light_gray:#fff;
-$cursor: #fff;
+$light_gray:rgb(19, 19, 19);
+$cursor: rgb(117, 117, 117);
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
@@ -163,17 +169,18 @@ $cursor: #fff;
   }
 
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(255, 255, 255);
     background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    color: #454545;
+    color: #a1a1a1;
   }
+
 }
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
+$bg:#c0c0c0;
+$dark_gray:#9fddff;
 $light_gray:#eee;
 
 .login-container {
@@ -184,11 +191,18 @@ $light_gray:#eee;
 
   .login-form {
     position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
+    width: 300px;
+    height: 390px;
+    background-color: white;
+    margin-top: 150px;
+    margin-left: -180px;
+    left: 50%;
+    padding: 30px;
+  }
+
+  .login-form-radius {
+    border-radius: 20px;
+    box-shadow: 0px 0px 1px 1px rgba(161, 159, 159, 0.1);
   }
 
   .tips {
@@ -216,7 +230,7 @@ $light_gray:#eee;
 
     .title {
       font-size: 26px;
-      color: $light_gray;
+      color:  #424242;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
@@ -232,5 +246,21 @@ $light_gray:#eee;
     cursor: pointer;
     user-select: none;
   }
+
+  .me-login-design {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+  }
+
+  .me-login-design-color {
+    color: #5FB878 !important;
+  }
+
+  .me-tologorhome-link {
+    text-align: center;
+    background: rgba(0, 0, 0, 0);
+  }
+
 }
 </style>

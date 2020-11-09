@@ -23,3 +23,11 @@ export function logout(token) {
     params: { token }
   })
 }
+
+export function usernameCheck(username) {
+  return request({
+    url: '/user/usernamecheck',
+    method: 'get',
+    params: { username }
+  })
+}
