@@ -16,7 +16,7 @@ import BaseHeader from '@/views/baseheader/BaseHeader'
 
 export default {
   name: 'Home',
-  data () {
+  data() {
     return {
       activeIndex: '/',
       footerShow: true
@@ -26,12 +26,12 @@ export default {
     'base-header': BaseHeader,
     'base-footer': BaseFooter
   },
-  beforeRouteEnter (to, from, next) {
+  beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.activeIndex = to.path
     })
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     if (to.path == '/') {
       this.footerShow = true
     } else {

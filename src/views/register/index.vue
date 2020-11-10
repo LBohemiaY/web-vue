@@ -1,22 +1,19 @@
 <template>
-  <div id="register" v-title data-title="注册">
+  <div id="register">
     <div class="me-login-box me-login-box-radius">
-      <h1>注册</h1>
-      <el-form ref="userForm" :model="userForm" :rules="rules">
-        <el-form-item prop="account">
-          <el-input v-model="userForm.account" placeholder="用户名" />
+      <h1>注 册</h1>
+      <el-form ref="userForm" :model="userForm" :rules="regRules">
+        <el-form-item prop="username">
+          <el-input v-model="userForm.username" placeholder="邮箱" />
         </el-form-item>
-
-        <el-form-item prop="nickname">
-          <el-input v-model="userForm.nickname" placeholder="昵称" />
+        <el-form-item prop="name">
+          <el-input v-model="userForm.name" placeholder="昵称" />
         </el-form-item>
-
         <el-form-item prop="password">
           <el-input v-model="userForm.password" placeholder="密码" />
         </el-form-item>
-
         <el-form-item size="small" class="me-login-button">
-          <el-button type="primary" @click.native.prevent="register('userForm')">注册</el-button>
+          <el-button type="primary" @click.native.prevent="handleregister('userForm')">注册</el-button>
         </el-form-item>
         <el-form-item size="small" class="me-toregorhome-link">
           <el-row>
@@ -39,37 +36,43 @@
   </div>
 </template>
 <script>
+import { validEmail } from '@/utils/validate'
+import { register } from '@/api/user'
 export default {
   name: 'Register',
   data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!validEmail(value)) {
+        callback(new Error('Please enter the correct user Email'))
+      } else {
+        callback()
+      }
+    }
+    const validatePassword = (rule, value, callback) => {
+      if (value.length < 6) {
+        callback(new Error('The password can not be less than 6 digits'))
+      } else {
+        callback()
+      }
+    }
     return {
       userForm: {
-        account: '',
-        nickname: '',
+        username: '',
+        name: '',
         password: ''
       },
-      rules: {
-        account: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { max: 10, message: '不能大于10个字符', trigger: 'blur' }
-        ],
-        nickname: [
-          { required: true, message: '请输入昵称', trigger: 'blur' },
-          { max: 10, message: '不能大于10个字符', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { max: 10, message: '不能大于10个字符', trigger: 'blur' }
-        ]
+      regRules: {
+        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       }
     }
   },
   methods: {
-    register(formName) {
+    handleregister(formName) {
       const that = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          that.$store.dispatch('register', that.userForm).then(() => {
+          register(that.userForm).then(() => {
             that.$message({ message: '提交注册成功，请等待管理员审核', type: 'success', showClose: true })
             that.$router.push({ path: '/' })
           }).catch((error) => {
@@ -117,7 +120,7 @@ export default {
 
   .me-login-box-radius {
     border-radius: 20px;
-    box-shadow: 0px 0px 1px 1px rgba(161, 159, 159, 0.1);
+    box-shadow: 0px 30px 30px 10px rgba(0, 0, 0, 0.1);
   }
 
   .me-login-box h1 {

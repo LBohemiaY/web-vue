@@ -1,50 +1,44 @@
 <template>
-  <!-- <div v-title data-title="Card Image"> -->
-    <el-container>
-      <el-main class="me-articles">
-      </el-main>
-      <el-aside>
-        <card-me class="me-area"></card-me>
-        <card-tag :tags="hotTags"></card-tag>
-        <card-article cardHeader="最热文章" :articles="hotArticles"></card-article>
-        <card-archive cardHeader="文章归档" :archives="archives"></card-archive>
-        <card-article cardHeader="最新文章" :articles="newArticles"></card-article>
-      </el-aside>
-    </el-container>
-  <!-- </div> -->
+  <el-container>
+    <el-main class="me-articles" />
+    <el-aside>
+      <card-me class="me-area" />
+      <card-tag :tags="hotTags" />
+      <card-article card-header="最热文章" :articles="hotArticles" />
+      <card-archive card-header="文章归档" :archives="archives" />
+      <card-article card-header="最新文章" :articles="newArticles" />
+    </el-aside>
+  </el-container>
 </template>
 
 <script>
-  import CardMe from '@/components/card/CardMe'
-  import CardArticle from '@/components/card/CardArticle'
-  import CardArchive from '@/components/card/CardArchive'
-  import CardTag from '@/components/card/CardTag'
-  //import ArticleScrollPage from '@/views/common/ArticleScrollPage'
+import CardMe from '@/components/card/CardMe'
+import CardArticle from '@/components/card/CardArticle'
+import CardArchive from '@/components/card/CardArchive'
+import CardTag from '@/components/card/CardTag'
 
-  export default {
-    name: 'Index',
-    created() {
-      
-    },
-    data() {
-      return {
-        hotTags: [],
-        hotArticles: [],
-        newArticles: [],
-        archives: []
-      }
-    },
-    methods: {
-
-    },
-    components: {
-      'card-me': CardMe,
-      'card-article': CardArticle,
-      'card-tag': CardTag,
-      //ArticleScrollPage,
-      'card-archive': CardArchive
+export default {
+  name: 'Index',
+  components: {
+    'card-me': CardMe,
+    'card-article': CardArticle,
+    'card-tag': CardTag,
+    'card-archive': CardArchive
+  },
+  data() {
+    return {
+      hotTags: [],
+      hotArticles: [],
+      newArticles: [],
+      archives: []
     }
+  },
+  created() {
+  },
+  methods: {
+
   }
+}
 </script>
 
 <style scoped>
